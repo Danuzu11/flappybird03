@@ -88,7 +88,7 @@ void World::update(float dt) noexcept
                 logs.push_back(log_factory.create(Settings::VIRTUAL_WIDTH, y, false));
             }
 
-            std::bernoulli_distribution star_prop{0.3};
+            std::bernoulli_distribution star_prop{0.8};
             
             if(star_prop(rng)){
                 power.push_back(powers_factory.create(Settings::VIRTUAL_WIDTH + 100, Settings::VIRTUAL_HEIGHT/2.5, true));

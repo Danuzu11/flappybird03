@@ -99,6 +99,7 @@ void Bird::start() noexcept
 void Bird::transform() noexcept
 {
     supersayayin = true;
+    supersaiyan_timer = 0.f;
 }
 
 bool Bird::is_transform() noexcept
