@@ -15,11 +15,11 @@
 class Log
 {
 public:
-    Log(float _x, float _y, bool inverted) noexcept;
+    Log(float _x, float _y,bool movement, bool inverted) noexcept;
 
     sf::FloatRect get_collision_rect() const noexcept;
 
-    void update(float _x) noexcept;
+    void update(float _x,float dt) noexcept;
 
     void render(sf::RenderTarget& target) const noexcept;
 
@@ -28,4 +28,12 @@ private:
     float y;
     bool inverted;
     sf::Sprite sprite;
+
+    //nuevo
+
+    float oscilation_dt{0.f};
+    float oscilation_speed{2.f};
+    float oscilation_amplitude{40.f};
+    float initial_position{0.f};
+    bool movement{false};
 };

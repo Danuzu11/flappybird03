@@ -16,7 +16,7 @@
 class LogPair
 {
 public:
-    LogPair(float _x, float _y) noexcept;
+    LogPair(float _x, float _y, bool move=true) noexcept;
 
     bool collides(const sf::FloatRect& rect) const noexcept;
 
@@ -37,4 +37,7 @@ private:
     Log bottom;
 
     bool scored{false};
+
+
+
 };

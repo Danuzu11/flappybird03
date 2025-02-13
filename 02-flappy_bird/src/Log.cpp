@@ -10,9 +10,12 @@
 
 #include <Settings.hpp>
 #include <src/Log.hpp>
+#include <cmath>
 
-Log::Log(float _x, float _y, bool _inverted) noexcept
-    : x{_x}, y{_y}, inverted{_inverted}, sprite{Settings::textures["Log"]}
+Log::Log(float _x, float _y, bool _movement , bool _inverted) noexcept
+    : x{_x}, y{_y},inverted{_inverted}, sprite{Settings::textures["Log"]},
+    initial_position{_y},
+    movement{_movement}
 {
     if (inverted)
     {
@@ -30,9 +33,23 @@ sf::FloatRect Log::get_collision_rect() const noexcept
     return sf::FloatRect{x - Settings::LOG_WIDTH, y - Settings::LOG_HEIGHT, Settings::LOG_WIDTH, Settings::LOG_HEIGHT};
 }
 
-void Log::update(float _x) noexcept
+void Log::update(float _x,float dt) noexcept
 {
     x = _x;
+
+    // nuevo
+    if(movement)
+    {
+        oscilation_dt += dt;
+        float range_oscilation = std::sin(oscilation_dt * oscilation_speed) * oscilation_amplitude;
+     
+        if (inverted)
+        {
+            y = initial_position + range_oscilation;
+        }else{
+            y = initial_position - range_oscilation;
+        }
+    }
 
     if (inverted)
     {

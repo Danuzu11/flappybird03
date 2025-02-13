@@ -11,10 +11,10 @@
 #include <Settings.hpp>
 #include <src/LogPair.hpp>
 
-LogPair::LogPair(float _x, float _y) noexcept
+LogPair::LogPair(float _x, float _y, bool _moving) noexcept
     : x{_x}, y{_y},
-      top{x, y + Settings::LOG_HEIGHT, true},
-      bottom{x, y + Settings::LOGS_GAP + Settings::LOG_HEIGHT, false}
+      top{x, y + Settings::LOG_HEIGHT,_moving, true},
+      bottom{x, y + Settings::LOGS_GAP + Settings::LOG_HEIGHT,_moving, false}
 {
 
 }
@@ -28,8 +28,8 @@ void LogPair::update(float dt) noexcept
 {
     x += -Settings::MAIN_SCROLL_SPEED * dt;
 
-    top.update(x);
-    bottom.update(x);
+    top.update(x,dt);
+    bottom.update(x,dt);
 }
 
 void LogPair::render(sf::RenderTarget& target) const noexcept

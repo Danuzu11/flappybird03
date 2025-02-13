@@ -47,6 +47,8 @@ public:
 
     int get_global_score();
 
+    void change_mode();
+
 private:
     bool generate_logs;
 
@@ -69,4 +71,5 @@ private:
 
     bool stopped{false};
     int global_score{0};
+    bool hard_mode{false};
 };

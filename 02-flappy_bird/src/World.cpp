@@ -27,18 +27,18 @@ void World::reset(bool _generate_logs) noexcept
 
 bool World::collides(const sf::FloatRect& rect) const noexcept
 {
-    if (rect.top + rect.height >= Settings::VIRTUAL_HEIGHT)
-    {
-        return true;
-    }
+    // if (rect.top + rect.height >= Settings::VIRTUAL_HEIGHT)
+    // {
+    //     return true;
+    // }
     
-    for (auto log_pair: logs)
-    {
-        if (log_pair->collides(rect))
-        {
-            return true;
-        }
-    }
+    // for (auto log_pair: logs)
+    // {
+    //     if (log_pair->collides(rect))
+    //     {
+    //         return true;
+    //     }
+    // }
 
     return false;
 }
@@ -76,7 +76,19 @@ void World::update(float dt) noexcept
 
             last_log_y = y;
 
-            logs.push_back(log_factory.create(Settings::VIRTUAL_WIDTH, y));
+            //nuevo
+            if(hard_mode){
+                float random_log_movement = std::rand() % 2;
+                if(random_log_movement == 1){
+                    logs.push_back(log_factory.create(Settings::VIRTUAL_WIDTH, y));
+                }else{
+                    logs.push_back(log_factory.create(Settings::VIRTUAL_WIDTH, y, false));
+                }
+            }else{
+                logs.push_back(log_factory.create(Settings::VIRTUAL_WIDTH, y, false));
+            }
+
+
         }
     }
 
@@ -155,4 +167,14 @@ void World::set_global_score(int local_score)
 int World::get_global_score() 
 {
     return global_score;
+}
+
+//nuevo
+void World::change_mode() 
+{
+    if(hard_mode){
+        hard_mode = false;
+    }else{
+        hard_mode = true;
+    }
 }
