@@ -38,8 +38,8 @@ private:
 
 
     float oscilation_dt{0.f};
-    float oscilation_speed{2.f};
-    float oscilation_amplitude{40.f};
+    float oscilation_speed{2.5f};
+    float oscilation_amplitude{60.f};
     float initial_position{0.f};
     bool movement{false};
 };

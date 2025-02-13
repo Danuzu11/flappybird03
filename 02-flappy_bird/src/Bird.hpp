@@ -34,6 +34,10 @@ public:
 
     void start() noexcept;
 
+    void transform() noexcept;
+
+    bool is_transform() noexcept;
+
 private:
     float x;
     float y;
@@ -45,4 +49,10 @@ private:
 
     //Nuevo
     bool stopped{false};
+    bool supersayayin{false};
+    float supersaiyan_timer{0.f};
+    float transformation_duration{5.0f};
+    bool visible = false;
+    float blink_timer{0.f};
+    float blink_duration{0.1f};
 };

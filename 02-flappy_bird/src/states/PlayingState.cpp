@@ -65,11 +65,16 @@ void PlayingState::update(float dt) noexcept
     bird->update(dt);
     world->update(dt);
 
-    if (world->collides(bird->get_collision_rect()))
+    //nuevo
+    if(!bird->is_transform())
     {
-        Settings::sounds["explosion"].play();
-        Settings::sounds["hurt"].play();
-        state_machine->change_state("count_down");
+        if (world->collides(bird->get_collision_rect()))
+        {
+            Settings::sounds["explosion"].play();
+            Settings::sounds["hurt"].play();
+            state_machine->change_state("count_down");
+        }
+    
     }
 
     if (world->update_scored(bird->get_collision_rect()))
@@ -81,6 +86,7 @@ void PlayingState::update(float dt) noexcept
     if (world->collides_stars(bird->get_collision_rect()))
     {
         Settings::sounds["explosion"].play();
+        bird->transform();
     }
 }
 

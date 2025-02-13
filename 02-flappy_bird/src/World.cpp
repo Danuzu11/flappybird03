@@ -27,26 +27,18 @@ void World::reset(bool _generate_logs) noexcept
 
 bool World::collides(const sf::FloatRect& rect) const noexcept
 {
-    // if (rect.top + rect.height >= Settings::VIRTUAL_HEIGHT)
-    // {
-    //     return true;
-    // }
+    if (rect.top + rect.height >= Settings::VIRTUAL_HEIGHT)
+    {
+        return true;
+    }
     
-    // for (auto log_pair: logs)
-    // {
-    //     if (log_pair->collides(rect))
-    //     {
-    //         return true;
-    //     }
-    // }
-
-    // for (auto power_pair: power)
-    // {
-    //     if (power_pair->collides(rect))
-    //     {
-    //         return true;
-    //     }
-    // }
+    for (auto log_pair: logs)
+    {
+        if (log_pair->collides(rect))
+        {
+            return true;
+        }
+    }
 
     return false;
 }
@@ -96,9 +88,10 @@ void World::update(float dt) noexcept
                 logs.push_back(log_factory.create(Settings::VIRTUAL_WIDTH, y, false));
             }
 
-            std::bernoulli_distribution star_prop{0.5};
+            std::bernoulli_distribution star_prop{0.3};
+            
             if(star_prop(rng)){
-                power.push_back(powers_factory.create(Settings::VIRTUAL_WIDTH - 60, Settings::VIRTUAL_HEIGHT/2.5, true));
+                power.push_back(powers_factory.create(Settings::VIRTUAL_WIDTH + 100, Settings::VIRTUAL_HEIGHT/2.5, true));
             } 
         }
     }

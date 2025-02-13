@@ -11,6 +11,8 @@
 #include <Settings.hpp>
 #include <src/Bird.hpp>
 
+sf::Clock clock_visible;
+
 Bird::Bird(float _x, float _y, float w, float h) noexcept
     : x{_x}, y{_y}, width{w}, height{h}, vy{0.f}, sprite{Settings::textures["bird"]}
 {
@@ -39,6 +41,23 @@ void Bird::update(float dt) noexcept
 
     vy += Settings::GRAVITY * dt;
 
+    if(is_transform()){
+
+        supersaiyan_timer += dt;
+        blink_timer += dt;
+
+        if (blink_timer >= blink_duration)
+        {
+            visible = !visible;
+            blink_timer = 0.f;
+        }
+
+        if(supersaiyan_timer >= transformation_duration){
+            supersayayin = false;
+            visible = true;
+        }
+    }
+
     if (jumping)
     {
         Settings::sounds["jump"].play();
@@ -52,7 +71,11 @@ void Bird::update(float dt) noexcept
 
 void Bird::render(sf::RenderTarget& target) const noexcept
 {
-    target.draw(sprite);
+
+    if(!supersayayin || visible){
+        target.draw(sprite);
+    }
+
 }
 
 //nuevo
@@ -71,4 +94,14 @@ void Bird::stop() noexcept
 void Bird::start() noexcept
 {
     stopped = false;
+}
+
+void Bird::transform() noexcept
+{
+    supersayayin = true;
+}
+
+bool Bird::is_transform() noexcept
+{
+    return supersayayin;
 }
