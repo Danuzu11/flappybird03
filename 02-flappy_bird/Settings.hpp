@@ -30,6 +30,8 @@ struct Settings
     static constexpr int VIRTUAL_HEIGHT{288};
     static constexpr float BIRD_WIDTH{39.f};
     static constexpr float BIRD_HEIGHT{28.f};
+    static constexpr float STAR_WIDTH{39.f};
+    static constexpr float STAR_HEIGHT{28.f};
     static constexpr float LOG_WIDTH{70.f};
     static constexpr float LOG_HEIGHT{288.f};
     static constexpr float LOGS_GAP{90.f};

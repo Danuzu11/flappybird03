@@ -77,6 +77,11 @@ void PlayingState::update(float dt) noexcept
         ++score;
         Settings::sounds["score"].play();
     }
+
+    if (world->collides_stars(bird->get_collision_rect()))
+    {
+        Settings::sounds["explosion"].play();
+    }
 }
 
 void PlayingState::render(sf::RenderTarget& target) const noexcept

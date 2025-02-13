@@ -18,6 +18,7 @@
 
 #include <src/Factory.hpp>
 #include <src/LogPair.hpp>
+#include <src/Power.hpp>
 
 class World
 {
@@ -49,6 +50,8 @@ public:
 
     void change_mode();
 
+    bool collides_stars(const sf::FloatRect& rect) noexcept;
+
 private:
     bool generate_logs;
 
@@ -72,4 +75,7 @@ private:
     bool stopped{false};
     int global_score{0};
     bool hard_mode{false};
+
+    Factory<Power> powers_factory;
+    std::list<std::shared_ptr<Power>> power;
 };

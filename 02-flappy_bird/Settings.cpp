@@ -72,6 +72,13 @@ void Settings::load_textures()
     }
 
     Settings::textures["Log"] = texture;
+
+    if (!texture.loadFromFile(Settings::GRAPHICS_PATH + "star.png"))
+    {
+        throw std::runtime_error{"Error loading texture graphics/star.png"};
+    }
+
+    Settings::textures["star"] = texture;
 }
 
 void Settings::load_sounds()

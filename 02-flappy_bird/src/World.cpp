@@ -13,7 +13,7 @@
 
 World::World(bool _generate_logs) noexcept
     : generate_logs{_generate_logs}, background{Settings::textures["background"]}, ground{Settings::textures["ground"]},
-      logs{}, rng{std::default_random_engine{}()}
+    power{},logs{}, rng{std::default_random_engine{}(),}
 {
     ground.setPosition(0, Settings::VIRTUAL_HEIGHT - Settings::GROUND_HEIGHT);
     std::uniform_int_distribution<int> dist(0, 80);
@@ -35,6 +35,14 @@ bool World::collides(const sf::FloatRect& rect) const noexcept
     // for (auto log_pair: logs)
     // {
     //     if (log_pair->collides(rect))
+    //     {
+    //         return true;
+    //     }
+    // }
+
+    // for (auto power_pair: power)
+    // {
+    //     if (power_pair->collides(rect))
     //     {
     //         return true;
     //     }
@@ -88,7 +96,10 @@ void World::update(float dt) noexcept
                 logs.push_back(log_factory.create(Settings::VIRTUAL_WIDTH, y, false));
             }
 
-
+            std::bernoulli_distribution star_prop{0.5};
+            if(star_prop(rng)){
+                power.push_back(powers_factory.create(Settings::VIRTUAL_WIDTH - 60, Settings::VIRTUAL_HEIGHT/2.5, true));
+            } 
         }
     }
 
@@ -125,6 +136,22 @@ void World::update(float dt) noexcept
             ++it;
         }
     }
+
+    for (auto it = power.begin(); it != power.end(); )
+    {
+        if ((*it)->is_out_of_game())
+        {
+            auto power_pair = *it;
+            powers_factory.remove(power_pair);
+            it = power.erase(it);
+            
+        }
+        else
+        {
+            (*it)->update(dt);
+            ++it;
+        }
+    }
 }
 
 void World::render(sf::RenderTarget& target) const noexcept
@@ -134,6 +161,13 @@ void World::render(sf::RenderTarget& target) const noexcept
     for (const auto& log_pair: logs)
     {
         log_pair->render(target);
+
+    }
+
+    for (const auto& power_pair: power)
+    {
+        power_pair->render(target);
+
     }
 
     target.draw(ground);
@@ -177,4 +211,25 @@ void World::change_mode()
     }else{
         hard_mode = true;
     }
+}
+
+bool World::collides_stars(const sf::FloatRect& rect) noexcept
+{
+ 
+    for (auto it = power.begin(); it != power.end(); )
+    {
+        if ((*it)->collides(rect))
+        {
+            auto power_pair = *it;
+            powers_factory.remove(power_pair); 
+            it = power.erase(it);  
+            return true;
+        }
+        else
+        {
+            ++it;
+        }
+    }
+
+    return false;
 }

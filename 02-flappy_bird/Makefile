@@ -4,7 +4,7 @@ INCLUDE = -I.
 
 BUILD_DIR = build
 
-OBJ_RULES = text_utilities.o Settings.o Game.o Bird.o Log.o LogPair.o World.o StateMachine.o TitleScreenState.o CountDownState.o PlayingState.o PauseState.o
+OBJ_RULES = text_utilities.o Settings.o Game.o Bird.o Log.o LogPair.o Power.o World.o StateMachine.o TitleScreenState.o CountDownState.o PlayingState.o PauseState.o 
 
 LIBS = -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system $(BUILD_DIR)/*.o
 
@@ -28,6 +28,9 @@ Log.o: $(BUILD_DIR) src/Log.hpp src/Log.cpp
 
 LogPair.o: $(BUILD_DIR) src/LogPair.hpp src/LogPair.cpp
 	$(CXX) -c $(INCLUDE) src/LogPair.cpp -o $(BUILD_DIR)/$@
+
+Power.o: $(BUILD_DIR) src/Power.hpp src/Power.cpp
+	$(CXX) -c $(INCLUDE) src/Power.cpp -o $(BUILD_DIR)/$@
 
 World.o: $(BUILD_DIR) src/World.hpp src/World.cpp
 	$(CXX) -c $(INCLUDE) src/World.cpp -o $(BUILD_DIR)/$@
