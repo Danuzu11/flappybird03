@@ -58,6 +58,7 @@ public:
 
     bool collides_stars(const sf::FloatRect& rect) noexcept;
 
+
 private:
     bool generate_logs;
 
@@ -66,6 +67,7 @@ private:
 
     float background_x{0.f};
     float ground_x{0.f};
+    float time_spawn{0.f};
 
     Factory<LogPair> log_factory;
 
@@ -75,8 +77,7 @@ private:
 
     float logs_spawn_timer{0.f};
     float last_log_y{0.f};
-
-    //nuevo
+    float last_log_x{0.f};
 
     bool stopped{false};
     int global_score{0};

@@ -73,6 +73,7 @@ void Bird::update(float dt) noexcept
         if(supersaiyan_timer >= transformation_duration){
             supersayayin = false;
             visible = true;
+            Settings::music.setPitch(1.0f);
         }
     }
 
@@ -134,6 +135,7 @@ void Bird::transform() noexcept
 {
     supersayayin = true;
     supersaiyan_timer = 0.f;
+    Settings::music.setPitch(1.5f);
 }
 
 bool Bird::is_transform() noexcept

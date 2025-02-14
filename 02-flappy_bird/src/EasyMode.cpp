@@ -13,5 +13,5 @@ bool EasyMode::MoveLogs()
 
 bool EasyMode::Stars()
 {
-    return false;
+    return true;
 }
