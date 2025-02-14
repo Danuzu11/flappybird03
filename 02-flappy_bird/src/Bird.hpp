@@ -63,4 +63,8 @@ private:
     bool visible = false;
     float blink_timer{0.f};
     float blink_duration{0.1f};
+
+    float max_speed{1000.f};
+    float acceleration{1500.f};
+    float deceleration{400.f};
 };

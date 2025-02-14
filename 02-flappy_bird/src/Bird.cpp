@@ -10,6 +10,7 @@
 
 #include <Settings.hpp>
 #include <src/Bird.hpp>
+#include <cmath>
 
 sf::Clock clock_visible;
 
@@ -57,7 +58,44 @@ void Bird::update(float dt) noexcept
     }
 
     vy += Settings::GRAVITY * dt;
-    vx = 0;
+
+    if (move_r)
+    {
+        vx += acceleration* dt;
+        if(vx > max_speed)
+        {
+            vx = max_speed;
+        }
+        move_r = false;
+    }
+    else if(move_l)
+    {
+        vx -= acceleration * dt;
+        if(vx < -max_speed)
+        {
+            vx = -max_speed;
+        }
+        move_l = false;
+
+    }
+    else
+    {
+        if(vx > 0){
+            vx -= deceleration * dt;
+            if(vx < 0)
+            {
+                vx = 0;
+            }
+        }else if (vx < 0)
+        {
+            vx += deceleration * dt;
+            if(vx > 0)
+            {
+                vx = 0;
+            }
+        }
+        
+    }
 
     if(is_transform()){
 
@@ -85,19 +123,7 @@ void Bird::update(float dt) noexcept
     }
 
 
-    if (move_r)
-    {
-        //Settings::sounds["jump"].play();
-        vx = Settings::MOVE_SPEED;
-        move_r = false;
-    }
 
-    if (move_l)
-    {
-        //Settings::sounds["jump"].play();
-        vx = -Settings::MOVE_SPEED;
-        move_l = false;
-    }
 
     y += vy * dt;
     x += vx * dt;
