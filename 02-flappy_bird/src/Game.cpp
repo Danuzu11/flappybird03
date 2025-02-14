@@ -20,10 +20,12 @@ Game::Game()
       render_texture{},
       render_sprite{},
       state_machine{
-        {"title", [](StateMachine* sm) { return std::make_shared<TitleScreenState>(sm); }},
-        {"count_down", [](StateMachine* sm) { return std::make_shared<CountDownState>(sm); }},
-        {"playing", [](StateMachine* sm) { return std::make_shared<PlayingState>(sm); }},
-        {"pause", [](StateMachine* sm) { return std::make_shared<PauseState>(sm); }}
+        {"title", [](StateMachine* sm ,std::shared_ptr<GameModeBase> mode) { return std::make_shared<TitleScreenState>(sm); }},
+        {"count_down", [](StateMachine* sm,std::shared_ptr<GameModeBase> mode) { return std::make_shared<CountDownState>(sm,mode); }},
+        {"playing", [](StateMachine* sm, std::shared_ptr<GameModeBase> mode) { 
+            return std::make_shared<PlayingState>(sm,mode); 
+        }},
+        {"pause", [](StateMachine* sm,std::shared_ptr<GameModeBase> mode) { return std::make_shared<PauseState>(sm,mode); }}
       }
 {
     render_texture.create(Settings::VIRTUAL_WIDTH, Settings::VIRTUAL_HEIGHT);

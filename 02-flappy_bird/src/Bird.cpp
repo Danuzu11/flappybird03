@@ -32,6 +32,23 @@ void Bird::jump() noexcept
     }
 }
 
+void Bird::moveL() noexcept
+{
+    if (!move_l)
+    {
+        move_l= true;
+    }
+}
+
+void Bird::moveR() noexcept
+{
+    if (!move_r)
+    {
+        move_r= true;
+    }
+}
+
+
 void Bird::update(float dt) noexcept
 {
     if(stopped)
@@ -40,6 +57,7 @@ void Bird::update(float dt) noexcept
     }
 
     vy += Settings::GRAVITY * dt;
+    vx = 0;
 
     if(is_transform()){
 
@@ -65,7 +83,23 @@ void Bird::update(float dt) noexcept
         jumping = false;
     }
 
+
+    if (move_r)
+    {
+        //Settings::sounds["jump"].play();
+        vx = Settings::MOVE_SPEED;
+        move_r = false;
+    }
+
+    if (move_l)
+    {
+        //Settings::sounds["jump"].play();
+        vx = -Settings::MOVE_SPEED;
+        move_l = false;
+    }
+
     y += vy * dt;
+    x += vx * dt;
     sprite.setPosition(x, y);
 }
 

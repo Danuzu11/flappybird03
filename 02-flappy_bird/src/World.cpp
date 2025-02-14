@@ -11,18 +11,19 @@
 #include <Settings.hpp>
 #include <src/World.hpp>
 
-World::World(bool _generate_logs) noexcept
+World::World(bool _generate_logs,std::shared_ptr<GameModeBase> _game_mode) noexcept
     : generate_logs{_generate_logs}, background{Settings::textures["background"]}, ground{Settings::textures["ground"]},
-    power{},logs{}, rng{std::default_random_engine{}(),}
+    power{},logs{}, rng{std::default_random_engine{}()}, game_mode{_game_mode}
 {
     ground.setPosition(0, Settings::VIRTUAL_HEIGHT - Settings::GROUND_HEIGHT);
     std::uniform_int_distribution<int> dist(0, 80);
     last_log_y = -Settings::LOG_HEIGHT + dist(rng) + 20;
 }
 
-void World::reset(bool _generate_logs) noexcept
+void World::reset(bool _generate_logs,std::shared_ptr<GameModeBase> _game_mode) noexcept
 {
     generate_logs = _generate_logs;
+    game_mode = _game_mode;
 }
 
 bool World::collides(const sf::FloatRect& rect) const noexcept
@@ -77,8 +78,9 @@ void World::update(float dt) noexcept
             last_log_y = y;
 
             //nuevo
-            if(hard_mode){
+            if(game_mode->MoveLogs()){
                 float random_log_movement = std::rand() % 2;
+
                 if(random_log_movement == 1){
                     logs.push_back(log_factory.create(Settings::VIRTUAL_WIDTH, y));
                 }else{
@@ -88,11 +90,22 @@ void World::update(float dt) noexcept
                 logs.push_back(log_factory.create(Settings::VIRTUAL_WIDTH, y, false));
             }
 
-            std::bernoulli_distribution star_prop{0.8};
+            if(game_mode->Stars())
+            {
+
+                 std::bernoulli_distribution star_prop{0.4};
+
+                 if(star_prop(rng))
+                 {
+                    power.push_back(powers_factory.create(Settings::VIRTUAL_WIDTH + 100, Settings::VIRTUAL_HEIGHT/2.5, true));
+                 } 
+                 
+
+            }
+
+           
             
-            if(star_prop(rng)){
-                power.push_back(powers_factory.create(Settings::VIRTUAL_WIDTH + 100, Settings::VIRTUAL_HEIGHT/2.5, true));
-            } 
+            
         }
     }
 

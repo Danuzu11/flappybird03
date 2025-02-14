@@ -13,8 +13,8 @@
 #include <src/states/StateMachine.hpp>
 #include <src/states/PauseState.hpp>
 
-PauseState::PauseState(StateMachine* sm) noexcept
-    : BaseState{sm}
+PauseState::PauseState(StateMachine* sm,std::shared_ptr<GameModeBase> mode) noexcept
+    : BaseState{sm},mode{mode}
 {
 
 }
@@ -31,7 +31,7 @@ void PauseState::handle_inputs(const sf::Event& event) noexcept
 {
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P)
     {
-        state_machine->change_state("playing",world,bird);
+        state_machine->change_state("playing",world,bird,mode);
     }
 }
 

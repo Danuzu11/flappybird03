@@ -13,20 +13,24 @@
 #include <src/states/CountDownState.hpp>
 #include <src/states/StateMachine.hpp>
 
-CountDownState::CountDownState(StateMachine* sm) noexcept
-    : BaseState{sm}
+
+CountDownState::CountDownState(StateMachine* sm,std::shared_ptr<GameModeBase> mode) noexcept
+    : BaseState{sm},mode{mode}
 {
 
 }
 
 void CountDownState::enter(std::shared_ptr<World> _world, std::shared_ptr<Bird> _bird) noexcept
 {
-    world = std::make_shared<World>(false);
+    world = std::make_shared<World>(false,mode);
 }
 
 void CountDownState::update(float dt) noexcept
 {
     timer += dt;
+
+ 
+
 
     if (timer >= 1.f)
     {
@@ -35,11 +39,14 @@ void CountDownState::update(float dt) noexcept
 
         if (counter == 0)
         {
-            state_machine->change_state("playing", world);
+            state_machine->change_state("playing", world,nullptr,mode);
         }
     }
 
     world->update(dt);
+
+    
+
 }
 
 void CountDownState::render(sf::RenderTarget& target) const noexcept

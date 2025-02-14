@@ -12,11 +12,13 @@
 
 #include <src/World.hpp>
 #include <src/states/BaseState.hpp>
+#include <src/GameModeBase.hpp>
+#include <src/EasyMode.hpp>
 
 class CountDownState: public BaseState
 {
 public:
-    CountDownState(StateMachine* sm) noexcept;
+    CountDownState(StateMachine* sm,std::shared_ptr<GameModeBase> mode) noexcept;
 
     void enter(std::shared_ptr<World> _world = nullptr, std::shared_ptr<Bird> _bird = nullptr) noexcept override;
 
@@ -26,6 +28,7 @@ public:
 
 private:
     std::shared_ptr<World> world;
+    std::shared_ptr<GameModeBase> mode;
     int counter{3};
     float timer{0.f};
 };

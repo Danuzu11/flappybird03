@@ -12,6 +12,9 @@
 
 #include <src/World.hpp>
 #include <src/states/BaseState.hpp>
+#include <src/GameModeBase.hpp>
+#include <src/EasyMode.hpp>
+#include <src/HardMode.hpp>
 
 class TitleScreenState: public BaseState
 {
@@ -24,6 +27,10 @@ public:
 
     void render(sf::RenderTarget& target) const noexcept override;
 
+    std::shared_ptr<GameModeBase> getSelectMode() noexcept;
+
 private:
     World world;
+    int selected_mode = 0;
+    bool is_hard_mode = false;
 };

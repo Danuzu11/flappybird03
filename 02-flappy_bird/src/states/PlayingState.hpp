@@ -13,12 +13,15 @@
 #include <src/Bird.hpp>
 #include <src/World.hpp>
 #include <src/states/BaseState.hpp>
+#include <src/GameModeBase.hpp>
+#include <src/HardMode.hpp>
+#include <src/EasyMode.hpp>
 
 class PlayingState: public BaseState
 {
 
 public:
-    PlayingState(StateMachine* sm) noexcept;
+    PlayingState(StateMachine* sm,std::shared_ptr<GameModeBase> mode) noexcept;
 
     void enter(std::shared_ptr<World> _world = nullptr, std::shared_ptr<Bird> _bird = nullptr) noexcept override;
 
@@ -32,6 +35,7 @@ private:
     std::shared_ptr<Bird> bird;
     std::shared_ptr<World> world;
     int score{0};
+    std::shared_ptr<GameModeBase> Gmode;
 
     //nuevo
     bool afterpause{false};

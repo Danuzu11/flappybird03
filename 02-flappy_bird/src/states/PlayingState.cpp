@@ -13,8 +13,8 @@
 #include <src/states/StateMachine.hpp>
 #include <src/states/PlayingState.hpp>
 
-PlayingState::PlayingState(StateMachine* sm) noexcept
-    : BaseState{sm}
+PlayingState::PlayingState(StateMachine* sm,std::shared_ptr<GameModeBase> mode) noexcept
+    : BaseState{sm},Gmode{mode}
 {
 
 }
@@ -24,7 +24,7 @@ void PlayingState::enter(std::shared_ptr<World> _world, std::shared_ptr<Bird> _b
     world = _world;
     // nuevo
     world->start();
-    world->reset(true);
+    world->reset(true,Gmode);
     
     if (_bird == nullptr)
     {
@@ -56,8 +56,31 @@ void PlayingState::handle_inputs(const sf::Event& event) noexcept
     {
         world->set_global_score(score);
         afterpause = true;
-        state_machine->change_state("pause",world,bird);
+        state_machine->change_state("pause",world,bird,Gmode);
     }
+
+
+
+    
+    if(dynamic_cast<HardMode*>(Gmode.get())){
+
+        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right)
+    {
+       bird->moveR();
+    }
+
+       if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left)
+    {
+       bird->moveL();
+    }
+
+
+    }
+
+
+
+
+
 }
 
 void PlayingState::update(float dt) noexcept
@@ -66,13 +89,15 @@ void PlayingState::update(float dt) noexcept
     world->update(dt);
 
     //nuevo
+
+    //si no esta transformado funionan las colisiones
     if(!bird->is_transform())
     {
         if (world->collides(bird->get_collision_rect()))
         {
             Settings::sounds["explosion"].play();
             Settings::sounds["hurt"].play();
-            state_machine->change_state("count_down");
+            state_machine->change_state("count_down",nullptr,nullptr,Gmode);
         }
     
     }
@@ -83,6 +108,8 @@ void PlayingState::update(float dt) noexcept
         Settings::sounds["score"].play();
     }
 
+
+    //Colision estrellas
     if (world->collides_stars(bird->get_collision_rect()))
     {
         Settings::sounds["explosion"].play();

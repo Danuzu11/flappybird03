@@ -19,17 +19,23 @@
 #include <src/Factory.hpp>
 #include <src/LogPair.hpp>
 #include <src/Power.hpp>
+#include <src/GameModeBase.hpp>
+#include <src/HardMode.hpp>
+#include <src/EasyMode.hpp>
+
+class GameModeBase;
+class HardMode;
 
 class World
 {
 public:
-    World(bool _generate_logs = false) noexcept;
+    World(bool _generate_logs = false,std::shared_ptr<GameModeBase> game_mode = nullptr) noexcept;
 
     World(const World& world) = delete;
 
     World& operator = (World) = delete;
 
-    void reset(bool _generate_logs) noexcept;
+    void reset(bool _generate_logs,std::shared_ptr<GameModeBase> _game_mode) noexcept;
 
     bool collides(const sf::FloatRect& rect) const noexcept;
 
@@ -78,4 +84,5 @@ private:
 
     Factory<Power> powers_factory;
     std::list<std::shared_ptr<Power>> power;
+    std::shared_ptr<GameModeBase> game_mode;
 };

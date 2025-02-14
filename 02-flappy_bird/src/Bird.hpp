@@ -24,6 +24,10 @@ public:
     sf::FloatRect get_collision_rect() const noexcept;
 
     void jump() noexcept;
+    
+    void moveL() noexcept;
+
+    void moveR() noexcept;
 
     void update(float dt) noexcept;
 
@@ -44,8 +48,12 @@ private:
     float width;
     float height;
     float vy;
+    float vx;
     sf::Sprite sprite;
     bool jumping{false};
+    bool move_l{false};
+
+    bool move_r{false};
 
     //Nuevo
     bool stopped{false};
