@@ -36,7 +36,7 @@ void LogPair::update(float dt) noexcept
     {
         if(!top.get_collide_log())
         {
-            Settings::sounds["woodcollide"].play();
+            Settings::sounds["wood"].play();
             top.set_collide_log(true);
         }
     }else{
