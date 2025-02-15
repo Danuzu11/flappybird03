@@ -37,6 +37,6 @@ private:
     int score{0};
     std::shared_ptr<GameModeBase> Gmode;
 
-    //nuevo
+    
     bool afterpause{false};
 };

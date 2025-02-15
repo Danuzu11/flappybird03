@@ -45,7 +45,7 @@ public:
 
     void render(sf::RenderTarget& target) const noexcept;
 
-    //nuevo
+    
     void stop() noexcept;
 
     void start() noexcept;

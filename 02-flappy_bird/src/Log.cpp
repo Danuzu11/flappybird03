@@ -33,11 +33,15 @@ sf::FloatRect Log::get_collision_rect() const noexcept
     return sf::FloatRect{x - Settings::LOG_WIDTH, y - Settings::LOG_HEIGHT, Settings::LOG_WIDTH, Settings::LOG_HEIGHT};
 }
 
+bool Log::check_log_collides(const Log& otherLog) const noexcept
+{
+    return get_collision_rect().intersects(otherLog.get_collision_rect());
+}
+
 void Log::update(float _x,float dt) noexcept
 {
     x = _x;
 
-    // nuevo
     if(movement)
     {
         oscilation_dt += dt;
@@ -46,8 +50,19 @@ void Log::update(float _x,float dt) noexcept
         if (inverted)
         {
             y = initial_position + range_oscilation;
+
+            if(y > initial_position + Settings::LOGS_GAP)
+            {
+                y = initial_position + Settings::LOGS_GAP;
+            }
+
         }else{
             y = initial_position - range_oscilation;
+
+            if(y < initial_position - Settings::LOGS_GAP)
+            {
+                y = initial_position - Settings::LOGS_GAP;
+            }
         }
     }
 
@@ -62,4 +77,14 @@ void Log::update(float _x,float dt) noexcept
 void Log::render(sf::RenderTarget& target) const noexcept
 {
     target.draw(sprite);
+}
+
+bool Log::get_collide_log() const noexcept
+{
+    return was_collide;
+}
+
+void Log::set_collide_log(bool _collide) noexcept
+{
+    was_collide = _collide;
 }

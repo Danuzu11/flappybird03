@@ -139,7 +139,7 @@ void Bird::render(sf::RenderTarget& target) const noexcept
 
 }
 
-//nuevo
+
 
 void Bird::stop() noexcept
 {

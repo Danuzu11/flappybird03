@@ -24,12 +24,24 @@ bool LogPair::collides(const sf::FloatRect& rect) const noexcept
     return top.get_collision_rect().intersects(rect) || bottom.get_collision_rect().intersects(rect);
 }
 
+
 void LogPair::update(float dt) noexcept
 {
     x += -Settings::MAIN_SCROLL_SPEED * dt;
 
     top.update(x,dt);
     bottom.update(x,dt);
+
+    if(top.get_collision_rect().intersects(bottom.get_collision_rect()))
+    {
+        if(!top.get_collide_log())
+        {
+            Settings::sounds["woodcollide"].play();
+            top.set_collide_log(true);
+        }
+    }else{
+        top.set_collide_log(false);
+    }
 }
 
 void LogPair::render(sf::RenderTarget& target) const noexcept

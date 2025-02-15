@@ -35,7 +35,6 @@ void Power::update(float dt) noexcept
 {
     x += -Settings::MAIN_SCROLL_SPEED * dt;
 
-    // nuevo
     if(movement)
     {
         oscilation_dt += dt;

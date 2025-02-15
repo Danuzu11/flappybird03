@@ -130,6 +130,16 @@ void Settings::load_sounds()
     {
         throw std::runtime_error{"Error loading music sounds/marios_way.ogg"};
     }
+
+    result = Settings::sound_buffers.emplace("woodcollide", buffer);
+
+    sound.setBuffer(result.first->second);
+    Settings::sounds["woodcollide"] = sound;
+
+    if (!Settings::music.openFromFile(Settings::SOUNDS_PATH + "wood.wav"))
+    {
+        throw std::runtime_error{"Error loading music sounds/wood.wav"};
+    }
 }
 
 void Settings::load_fonts()

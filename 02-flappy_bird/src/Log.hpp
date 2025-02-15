@@ -23,17 +23,21 @@ public:
 
     void render(sf::RenderTarget& target) const noexcept;
 
+    bool check_log_collides(const Log& otherLog) const noexcept;
+
+    bool get_collide_log() const noexcept;
+
+    void set_collide_log(bool _collide) noexcept;
+
 private:
     float x;
     float y;
     bool inverted;
     sf::Sprite sprite;
-
-    //nuevo
-
     float oscilation_dt{0.f};
     float oscilation_speed{2.f};
-    float oscilation_amplitude{40.f};
+    float oscilation_amplitude{45.f};
     float initial_position{0.f};
     bool movement{false};
+    bool was_collide{true};
 };

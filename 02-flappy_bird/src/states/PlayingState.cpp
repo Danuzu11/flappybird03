@@ -22,7 +22,6 @@ PlayingState::PlayingState(StateMachine* sm,std::shared_ptr<GameModeBase> mode) 
 void PlayingState::enter(std::shared_ptr<World> _world, std::shared_ptr<Bird> _bird) noexcept
 {
     world = _world;
-    // nuevo
     world->start();
     world->reset(true,Gmode);
     
@@ -36,11 +35,10 @@ void PlayingState::enter(std::shared_ptr<World> _world, std::shared_ptr<Bird> _b
     else
     {
         bird = _bird;
-        // nuevo
+  
         bird->start();
     }
 
-    //nuevo SABRA DIOS PORQUE FUNCIONO JE JE TIRE LA FLECHA Y MATE A CUPIDO
     score = world->get_global_score();
 
 }
@@ -51,7 +49,7 @@ void PlayingState::handle_inputs(const sf::Event& event) noexcept
     {
         bird->jump();
     }
-    //NUEVO
+
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P)
     {
         world->set_global_score(score);
@@ -59,21 +57,17 @@ void PlayingState::handle_inputs(const sf::Event& event) noexcept
         state_machine->change_state("pause",world,bird,Gmode);
     }
 
-
-
-    
     if(dynamic_cast<HardMode*>(Gmode.get())){
 
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right)
-    {
-       bird->moveR();
-    }
+        {
+        bird->moveR();
+        }
 
-       if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left)
-    {
-       bird->moveL();
-    }
-
+        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left)
+        {
+        bird->moveL();
+        }
 
     }
 
@@ -88,7 +82,7 @@ void PlayingState::update(float dt) noexcept
     bird->update(dt);
     world->update(dt);
 
-    //nuevo
+    
 
     //si no esta transformado funionan las colisiones
     if(!bird->is_transform())

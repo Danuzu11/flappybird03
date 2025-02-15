@@ -205,7 +205,7 @@ void World::render(sf::RenderTarget& target) const noexcept
     target.draw(ground);
 }
 
-//nuevo
+
 
 void World::stop() noexcept
 {
@@ -236,7 +236,7 @@ int World::get_global_score()
     return global_score;
 }
 
-//nuevo
+
 void World::change_mode() 
 {
     if(hard_mode)

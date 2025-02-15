@@ -33,7 +33,7 @@ public:
 
     void render(sf::RenderTarget& target) const noexcept;
 
-    //Nuevo
+    
     void stop() noexcept;
 
     void start() noexcept;
@@ -52,10 +52,7 @@ private:
     sf::Sprite sprite;
     bool jumping{false};
     bool move_l{false};
-
     bool move_r{false};
-
-    //Nuevo
     bool stopped{false};
     bool supersayayin{false};
     float supersaiyan_timer{0.f};
@@ -63,7 +60,6 @@ private:
     bool visible = false;
     float blink_timer{0.f};
     float blink_duration{0.1f};
-
     float max_speed{1000.f};
     float acceleration{1500.f};
     float deceleration{400.f};

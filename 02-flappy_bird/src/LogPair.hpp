@@ -37,7 +37,4 @@ private:
     Log bottom;
 
     bool scored{false};
-
-
-
 };
