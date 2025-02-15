@@ -28,18 +28,18 @@ void World::reset(bool _generate_logs,std::shared_ptr<GameModeBase> _game_mode) 
 
 bool World::collides(const sf::FloatRect& rect) const noexcept
 {
-    // if (rect.top + rect.height >= Settings::VIRTUAL_HEIGHT)
-    // {
-    //     return true;
-    // }
+    if (rect.top + rect.height >= Settings::VIRTUAL_HEIGHT)
+    {
+        return true;
+    }
     
-    // for (auto log_pair: logs)
-    // {
-    //     if (log_pair->collides(rect))
-    //     {
-    //         return true;
-    //     }
-    // }
+    for (auto log_pair: logs)
+    {
+        if (log_pair->collides(rect))
+        {
+            return true;
+        }
+    }
 
     return false;
 }

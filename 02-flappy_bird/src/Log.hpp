@@ -36,7 +36,7 @@ private:
     sf::Sprite sprite;
     float oscilation_dt{0.f};
     float oscilation_speed{2.f};
-    float oscilation_amplitude{48.f};
+    float oscilation_amplitude{46.5f};
     float initial_position{0.f};
     bool movement{false};
     bool was_collide{true};
