@@ -2,9 +2,7 @@
 
 ## Descripción del Proyecto
 
-Este repositorio contiene una reimplementación del clásico y popular juego **Flappy Bird** desarrollado en el lenguaje de programación **C++**. El objetivo del proyecto es recrear la mecánica de juego esencial (gravedad, salto y colisión) para demostrar habilidades de programación de juegos y manejo de librerías gráficas.
-
-El código fuente principal se encuentra ubicado en el directorio `02-flappy_bird`.
+Reimplementación del clásico y popular juego **Flappy Bird** desarrollado en el lenguaje de programación **C++**. El objetivo del proyecto es recrear la mecánica de juego esencial (gravedad, salto y colisión) para demostrar habilidades de programación de juegos y manejo de librerías gráficas.
 
 ---
 
